@@ -41,8 +41,9 @@ public class TestStreamsExercises {
 		Session session = em.unwrap(Session.class);
 		
 		// Select all Author entities and get the result set as a Stream.
-		Stream<Author> authors = null;
-		Assert.assertEquals(11, authors.count());
+		Stream<Author> authors = session.createQuery("SELECT a FROM Author a").stream();
+		//authors.findFirst();
+                Assert.assertEquals(11, authors.count());
 		
 		em.getTransaction().commit();
 		em.close();

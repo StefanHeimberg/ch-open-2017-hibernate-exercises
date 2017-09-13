@@ -42,9 +42,13 @@ public class TestStoredProcedureExercise {
 		
 		EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
+        
+            final StoredProcedureQuery p = em.createNamedStoredProcedureQuery("calculate");
+            p.setParameter("x", 4d);
+            p.setParameter("y", 5d);
+            p.execute();
        
-        // call the stored procedure calculate with parameters 4 and 5
-		Double sum = null;
+		Double sum = (Double) p.getOutputParameterValue("sum");
 		Assert.assertEquals(new Double(9), sum);
 		log.info("Calculation result: 4 + 5 = " + sum);
         
@@ -64,8 +68,15 @@ public class TestStoredProcedureExercise {
 		EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
        
+            final StoredProcedureQuery p = em.createStoredProcedureQuery("get_reviews", Review.class);
+		p.registerStoredProcedureParameter(1, void.class, ParameterMode.REF_CURSOR);
+		p.registerStoredProcedureParameter(2, Long.class, ParameterMode.IN);
+            
+            p.setParameter(2, 2l);
+            p.execute();
+            
         // call the get_reviews stored procedure for the Book with id 2
-		List<Review> reviews = null;
+		List<Review> reviews = p.getResultList();
 		for (Review r : reviews) {
 			log.info(r);
 		}

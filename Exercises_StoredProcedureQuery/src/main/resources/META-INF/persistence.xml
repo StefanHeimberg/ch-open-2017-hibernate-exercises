@@ -10,7 +10,7 @@
             <property name="hibernate.generate_statistics" value="true"/>   
       
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/HPT" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/AHT" />
 			<property name="javax.persistence.jdbc.user" value="postgres" />
 			<property name="javax.persistence.jdbc.password" value="postgres" />
       

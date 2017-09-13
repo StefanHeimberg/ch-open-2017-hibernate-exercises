@@ -33,6 +33,9 @@ public class Review implements Serializable {
 	
 	@Column
 	private Rating rating;
+        
+        @Column
+        private LocalDateTime lastUpdate;
 
 	public Long getId() {
 		return this.id;
@@ -81,4 +84,8 @@ public class Review implements Serializable {
 			result += "comment: " + comment;
 		return result;
 	}
+
+    void setLastUpdate(LocalDateTime now) {
+        this.lastUpdate = now;
+    }
 }

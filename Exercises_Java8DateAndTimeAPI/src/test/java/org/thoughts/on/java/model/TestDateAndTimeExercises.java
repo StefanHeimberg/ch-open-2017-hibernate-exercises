@@ -61,7 +61,9 @@ public class TestDateAndTimeExercises {
 		em.getTransaction().begin();
 
 		// Select all reviews that were posted in 2016.
-		TypedQuery<Review> q = null;
+		TypedQuery<Review> q = em.createQuery("SELECT r FROM Review r WHERE r.postedAt BETWEEN :start AND :end", Review.class);
+		q.setParameter("start", LocalDate.of(2016, 1, 1));
+		q.setParameter("end", LocalDate.of(2016, 12, 31));
 		List<Review> reviews = q.getResultList();
 		Assert.assertEquals(2, reviews.size());
 		

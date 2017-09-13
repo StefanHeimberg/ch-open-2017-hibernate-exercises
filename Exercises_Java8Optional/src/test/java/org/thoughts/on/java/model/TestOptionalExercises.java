@@ -59,7 +59,7 @@ public class TestOptionalExercises {
 		Session session = em.unwrap(Session.class);
 		
 		// Use Hibernate’s loadOptional method to load the Review entity with id 128.
-		Optional<Review> r = null;
+		Optional<Review> r = session.byId(Review.class).loadOptional(128l);
 		Assert.assertFalse(r.isPresent());
 		
 		em.getTransaction().commit();

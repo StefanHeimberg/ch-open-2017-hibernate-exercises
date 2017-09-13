@@ -8,6 +8,8 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.persistence.criteria.SetJoin;
 
 import org.apache.log4j.Logger;
 import org.junit.After;
@@ -43,13 +45,19 @@ public class TestCriteriaQueryExercises {
 		
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Author> cq = cb.createQuery(Author.class);
-		
-		// define query
-		
+                
+                Root<Author> author = cq.from(Author.class);
+
+                cq.where(cb.and(
+                        cb.equal(author.get(Author_.firstName), cb.parameter(String.class, "p_firstname")),
+                        cb.equal(author.get(Author_.lastName), cb.parameter(String.class, "p_lastname"))
+                ));
+                
+                cq.select(author);
 		
 		TypedQuery<Author> q = em.createQuery(cq);
-		q.setParameter("firstname", "John");
-		q.setParameter("lastname", "Doe");
+		q.setParameter("p_firstname", "John");
+		q.setParameter("p_lastname", "Doe");
 		
 		Author a = q.getSingleResult();
 		Assert.assertEquals("John", a.getFirstName());
@@ -72,11 +80,19 @@ public class TestCriteriaQueryExercises {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Author> cq = cb.createQuery(Author.class);
 
-		// define query
-		
+                final Root<Author> author = cq.from(Author.class);
+                final SetJoin<Author, Book> books = author.join(Author_.books);
+                
+                cq.where(
+                        cb.equal(books.get(Book_.id), cb.parameter(Long.class, "p_bookId"))
+                );
+                
+                cq.select(author);
+                
+                cq.orderBy(cb.asc(author.get(Author_.lastName)));
 		
 		TypedQuery<Author> q = em.createQuery(cq);
-		q.setParameter("bookId", 1L);
+		q.setParameter("p_bookId", 1L);
 		
 		List<Author> authors = q.getResultList();
 		Assert.assertEquals("Author", authors.get(0).getLastName());

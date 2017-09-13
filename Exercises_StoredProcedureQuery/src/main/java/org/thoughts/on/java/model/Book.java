@@ -1,6 +1,7 @@
 package org.thoughts.on.java.model;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,12 +16,26 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedStoredProcedureQueries;
+import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 @Entity
+@NamedStoredProcedureQueries({
+		@NamedStoredProcedureQuery(name = "calculate", 
+                    procedureName = "calculate", 
+                    parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, type = Double.class, name = "x"), 
+                        @StoredProcedureParameter(mode = ParameterMode.IN, type = Double.class, name = "y"), 
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, type = Double.class, name = "sum")
+                    }
+                )
+})
 public class Book implements Serializable {
 
 	private static final long serialVersionUID = 1L;

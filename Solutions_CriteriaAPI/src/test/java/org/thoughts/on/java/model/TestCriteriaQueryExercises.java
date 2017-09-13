@@ -46,16 +46,18 @@ public class TestCriteriaQueryExercises {
 		
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Author> cq = cb.createQuery(Author.class);
+                
 		Root<Author> author = cq.from(Author.class);
 		cq.select(author);
-		
-		ParameterExpression<String> firstname = cb.parameter(String.class, "firstname");
-		ParameterExpression<String> lastname = cb.parameter(String.class, "lastname");
-		cq.where(cb.and(cb.equal(author.get("firstName"), firstname), cb.equal(author.get("lastName"), lastname)));
+	
+		cq.where(cb.and(
+                        cb.equal(author.get(Author_.firstName), cb.parameter(String.class, "p_firstname")),
+                        cb.equal(author.get(Author_.lastName), cb.parameter(String.class, "p_lastname")))
+                );
 		
 		TypedQuery<Author> q = em.createQuery(cq);
-		q.setParameter("firstname", "John");
-		q.setParameter("lastname", "Doe");
+		q.setParameter("p_firstname", "John");
+		q.setParameter("p_lastname", "Doe");
 		
 		Author a = q.getSingleResult();
 		Assert.assertEquals("John", a.getFirstName());

@@ -32,6 +32,7 @@ public class Review implements Serializable {
 	private LocalDateTime postedAt;
 
 	@Column
+        @Type(type = "ReviewTextType")
 	private ReviewText text;
 
 	public Long getId() {

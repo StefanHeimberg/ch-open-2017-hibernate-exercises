@@ -49,8 +49,8 @@ public class Review implements Serializable {
 		this.version = version;
 	}
 
-	public String getComment() {
-		return this.comment;
+	public Optional<String> getComment() {
+		return Optional.ofNullable(this.comment);
 	}
 
 	public void setComment(String comment) {
