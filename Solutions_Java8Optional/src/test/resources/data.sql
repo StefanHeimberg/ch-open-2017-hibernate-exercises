@@ -1,0 +1,1 @@
+INSERT INTO review (id, rating, version) VALUES (1, 1, 0);

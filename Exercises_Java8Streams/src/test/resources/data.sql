@@ -1,0 +1,11 @@
+INSERT INTO author (id, firstname, lastname, version) VALUES (1, 'FirstName1', 'LastName1', 0);
+INSERT INTO author (id, firstname, lastname, version) VALUES (2, 'FirstName2', 'LastName2', 0);
+INSERT INTO author (id, firstname, lastname, version) VALUES (3, 'FirstName3', 'LastName3', 0);
+INSERT INTO author (id, firstname, lastname, version) VALUES (4, 'FirstName4', 'LastName4', 0);
+INSERT INTO author (id, firstname, lastname, version) VALUES (5, 'FirstName5', 'LastName5', 0);
+INSERT INTO author (id, firstname, lastname, version) VALUES (6, 'FirstName6', 'LastName6', 0);
+INSERT INTO author (id, firstname, lastname, version) VALUES (7, 'FirstName7', 'LastName7', 0);
+INSERT INTO author (id, firstname, lastname, version) VALUES (8, 'FirstName8', 'LastName8', 0);
+INSERT INTO author (id, firstname, lastname, version) VALUES (9, 'FirstName9', 'LastName9', 0);
+INSERT INTO author (id, firstname, lastname, version) VALUES (10, 'FirstName10', 'LastName10', 0);
+INSERT INTO author (id, firstname, lastname, version) VALUES (11, 'FirstName11', 'LastName11', 0);
